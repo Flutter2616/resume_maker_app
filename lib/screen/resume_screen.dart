@@ -30,19 +30,26 @@ class _ResumescreenState extends State<Resumescreen> {
               iconSize: 25),
         ],
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          text("Name", "${d.name}"),
-          text("Address", "${d.add}"),
-          text("contact", "${d.con}"),
-          text("E mail", "${d.email}"),
-          text("Objective", "${d.obj}"),
-          text("Language", "${d.language}"),
-          text("Skill", "${d.skill}"),
-          text("Hobbies", "${d.hobbies}"),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.only(left: 10.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            text("Name", "${d.name}"),
+            text("Address", "${d.add}"),
+            text("contact", "${d.con}"),
+            text("E mail", "${d.email}"),
+            text("Objective", "${d.obj}"),
+            text("Language", "${d.language}"),
+            text("Skill", "${d.skill}"),
+            text("Hobbies", "${d.hobbies}"),
+            text("State", "${d.state}"),
+            text("Univercity", "${d.seluni}"),
+            text("Education", "${d.edu}"),
+            text("Work", "${d.work}"),
+          ],
+        ),
       ),
     );
   }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:resume_maker_app/modal_class.dart';
 
 class Homescreen extends StatefulWidget {
@@ -12,6 +13,10 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  //image picker veriable
+  String path="";
+
+  //detail veriable
   String? work;
   List lan = [false, false, false];
   TextEditingController name = TextEditingController();
@@ -64,7 +69,8 @@ class _HomescreenState extends State<Homescreen> {
   String? selUni;
   String? state;
   RangeValues rangeValues = RangeValues(25000, 100000);
-var datakey=GlobalKey<FormState>();
+  var datakey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -73,16 +79,31 @@ var datakey=GlobalKey<FormState>();
         onWillPop: close,
         child: SafeArea(
           child: Scaffold(
-            drawer: Drawer(
-              width: 300,backgroundColor: Colors.white,child: ListView(
-              children: [
-                ListTile(title: Text("prince"),trailing: Icon(Icons.add),),
-                ListTile(title: Text("prince"),trailing: Icon(Icons.add),),
-                ListTile(title: Text("prince"),trailing: Icon(Icons.add),),
-                ListTile(title: Text("prince"),trailing: Icon(Icons.add),),
-              ],
-            ),shadowColor: Colors.black26,
-            ),
+              drawer: Drawer(
+                width: 300,
+                backgroundColor: Colors.white,
+                child: ListView(
+                  children: [
+                    ListTile(
+                      title: Text("prince"),
+                      trailing: Icon(Icons.add),
+                    ),
+                    ListTile(
+                      title: Text("prince"),
+                      trailing: Icon(Icons.add),
+                    ),
+                    ListTile(
+                      title: Text("prince"),
+                      trailing: Icon(Icons.add),
+                    ),
+                    ListTile(
+                      title: Text("prince"),
+                      trailing: Icon(Icons.add),
+                    ),
+                  ],
+                ),
+                shadowColor: Colors.black26,
+              ),
               appBar: AppBar(
                 centerTitle: true,
                 title: Text("Resume Maker"),
@@ -103,8 +124,12 @@ var datakey=GlobalKey<FormState>();
               body: SingleChildScrollView(
                 child: Column(
                   children: [
+                    SizedBox(height: 5),
+                    photo(),
+                    SizedBox(height: 5),
                     ExpansionTile(
-                      leading: Icon(Icons.person, color: Colors.purple, size: 28),
+                      leading:
+                          Icon(Icons.person, color: Colors.purple, size: 28),
                       title: Text("Personal Information",
                           style: TextStyle(fontSize: 18, color: Colors.black)),
                       collapsedBackgroundColor: Colors.purple.shade50,
@@ -114,13 +139,33 @@ var datakey=GlobalKey<FormState>();
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              field(condition: 1,title: "Full Name",txtdata: name,error: "please Enter your Name",kboard: TextInputType.text),
+                              field(
+                                  condition: 1,
+                                  title: "Full Name",
+                                  txtdata: name,
+                                  error: "please Enter your Name",
+                                  kboard: TextInputType.text),
                               SizedBox(height: 5),
-                              field(condition: 1,title: "Street Address",txtdata: add,error: "please Enter your Address",kboard: TextInputType.streetAddress),
+                              field(
+                                  condition: 1,
+                                  title: "Street Address",
+                                  txtdata: add,
+                                  error: "please Enter your Address",
+                                  kboard: TextInputType.streetAddress),
                               SizedBox(height: 5),
-                              field(condition: 2,title: "Contact",txtdata:  con,kboard: TextInputType.phone,error: "Enter valid phone number"),
+                              field(
+                                  condition: 2,
+                                  title: "Contact",
+                                  txtdata: con,
+                                  kboard: TextInputType.phone,
+                                  error: "Enter valid phone number"),
                               SizedBox(height: 5),
-                              field(condition: 1,title: "E-mail",txtdata:  email,error: "please Enter your E-mail",kboard: TextInputType.emailAddress),
+                              field(
+                                  condition: 1,
+                                  title: "E-mail",
+                                  txtdata: email,
+                                  error: "please Enter your E-mail",
+                                  kboard: TextInputType.emailAddress),
                               SizedBox(height: 5),
                               DropdownButton(
                                 items: stat
@@ -135,14 +180,19 @@ var datakey=GlobalKey<FormState>();
                                 },
                                 isExpanded: true,
                                 iconEnabledColor: Colors.purple,
-                                style: TextStyle(fontSize: 20, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black),
                                 iconSize: 30,
                                 hint: Text("Select State",
                                     style: TextStyle(
                                         color: Colors.black, fontSize: 20)),
                               ),
                               SizedBox(height: 5),
-                              field(condition: 1,title: "Objective",txtdata: obj,kboard: TextInputType.text),
+                              field(
+                                  condition: 1,
+                                  title: "Objective",
+                                  txtdata: obj,
+                                  kboard: TextInputType.text),
                             ],
                           ),
                         ),
@@ -173,7 +223,8 @@ var datakey=GlobalKey<FormState>();
                                 },
                                 isExpanded: true,
                                 iconEnabledColor: Colors.purple,
-                                style: TextStyle(fontSize: 20, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black),
                                 iconSize: 30,
                                 hint: Text("Select Qulification",
                                     style: TextStyle(
@@ -193,7 +244,8 @@ var datakey=GlobalKey<FormState>();
                                 },
                                 isExpanded: true,
                                 iconEnabledColor: Colors.purple,
-                                style: TextStyle(fontSize: 20, color: Colors.black),
+                                style: TextStyle(
+                                    fontSize: 20, color: Colors.black),
                                 iconSize: 30,
                                 hint: Text("Select Univercity",
                                     style: TextStyle(
@@ -205,7 +257,8 @@ var datakey=GlobalKey<FormState>();
                       ],
                     ),
                     ExpansionTile(
-                      leading: Icon(Icons.language, color: Colors.purple, size: 28),
+                      leading:
+                          Icon(Icons.language, color: Colors.purple, size: 28),
                       title: Text("Know Language",
                           style: TextStyle(fontSize: 18, color: Colors.black)),
                       collapsedBackgroundColor: Colors.purple.shade50,
@@ -248,15 +301,19 @@ var datakey=GlobalKey<FormState>();
                                 title: Text("Gujarati"),
                               ),
                               SizedBox(height: 5),
-                              field(condition: 1,title: "Other language",txtdata:  language,kboard: TextInputType.text),
+                              field(
+                                  condition: 1,
+                                  title: "Other language",
+                                  txtdata: language,
+                                  kboard: TextInputType.text),
                             ],
                           ),
                         ),
                       ],
                     ),
                     ExpansionTile(
-                      leading:
-                          Icon(Icons.engineering, color: Colors.purple, size: 28),
+                      leading: Icon(Icons.engineering,
+                          color: Colors.purple, size: 28),
                       title: Text("Skill/Hobbies",
                           style: TextStyle(fontSize: 18, color: Colors.black)),
                       collapsedBackgroundColor: Colors.purple.shade50,
@@ -266,9 +323,17 @@ var datakey=GlobalKey<FormState>();
                           padding: const EdgeInsets.all(8.0),
                           child: Column(
                             children: [
-                              field(condition: 1,title: "Skill",txtdata: skill,kboard: TextInputType.text),
+                              field(
+                                  condition: 1,
+                                  title: "Skill",
+                                  txtdata: skill,
+                                  kboard: TextInputType.text),
                               SizedBox(height: 5),
-                              field(condition: 1,title: "Hobbies",txtdata:  hobbies,kboard: TextInputType.text),
+                              field(
+                                  condition: 1,
+                                  title: "Hobbies",
+                                  txtdata: hobbies,
+                                  kboard: TextInputType.text),
                             ],
                           ),
                         ),
@@ -346,7 +411,7 @@ var datakey=GlobalKey<FormState>();
                     SizedBox(height: 15),
                     ElevatedButton(
                       onPressed: () {
-                        if(datakey.currentState!.validate()) {
+                        if (datakey.currentState!.validate()) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(
                                 content: Text("Submit Successfully"),
@@ -372,8 +437,8 @@ var datakey=GlobalKey<FormState>();
                         }
                       },
                       child: Text("Submit", style: TextStyle(fontSize: 20)),
-                      style:
-                          ElevatedButton.styleFrom(backgroundColor: Colors.purple),
+                      style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.purple),
                     ),
                   ],
                 ),
@@ -383,18 +448,25 @@ var datakey=GlobalKey<FormState>();
     );
   }
 
-  Widget field({required String? title,required TextEditingController? txtdata,String? error,required int? condition,required TextInputType kboard}) {
-    return TextFormField(keyboardType: kboard,
-      validator:(value) {
-      if(condition==1?value!.isEmpty:value!.length!=10) {
-        return error;
-      }
-      return null;
-    },
+  Widget field(
+      {required String? title,
+      required TextEditingController? txtdata,
+      String? error,
+      required int? condition,
+      required TextInputType kboard}) {
+    return TextFormField(
+        keyboardType: kboard,
+        validator: (value) {
+          if (condition == 1 ? value!.isEmpty : value!.length != 10) {
+            return error;
+          }
+          return null;
+        },
         style: TextStyle(fontSize: 18),
         textInputAction: TextInputAction.next,
         controller: txtdata,
-        decoration: InputDecoration(border: OutlineInputBorder(),
+        decoration: InputDecoration(
+            border: OutlineInputBorder(),
             labelStyle: TextStyle(color: Colors.black),
             enabledBorder: OutlineInputBorder(
               borderSide: BorderSide(color: Colors.purple, width: 2),
@@ -449,5 +521,93 @@ var datakey=GlobalKey<FormState>();
   Future<bool> close() async {
     dialoge();
     return await false;
+  }
+
+  Widget photo() {
+    return Stack(
+      alignment: Alignment(1.1, 0.7),
+      children: [
+        path==null?CircleAvatar(
+          radius: 100,
+          // backgroundColor: Colors.black,
+          backgroundImage: NetworkImage("https://www.vhv.rs/dpng/d/544-5445462_people-icons-png-flat-person-icon-png-transparent.png")
+        ):CircleAvatar(
+            radius: 100,
+            // backgroundColor: Colors.black,
+            backgroundImage: FileImage(File("$path"))
+        ),
+        GestureDetector(
+          onTap: () {
+            showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  backgroundColor: Colors.white,
+                  title: Text("Image picker"),
+                  content: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      InkWell(
+                        onTap:() async {
+                          ImagePicker img=ImagePicker();
+                          XFile? xfile=await img.pickImage(source: ImageSource.camera);
+                          setState(() {
+                            path=xfile!.path;
+                          });
+                        },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration:
+                              BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey),
+                              child: Icon(Icons.camera_alt, color: Colors.black, size: 25),
+                            ),
+                            SizedBox(height: 5),
+                            Text("Camera",style: TextStyle(fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                      ),
+                      InkWell(
+                        onTap:() async {
+                          ImagePicker img=ImagePicker();
+                          XFile? xfile=await img.pickImage(source: ImageSource.gallery);
+                          setState(() {
+                            path=xfile!.path;
+                          });
+                      },
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: 50,
+                              height: 50,
+                              decoration:
+                              BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey),
+                              child: Icon(Icons.image, color: Colors.black, size: 25),
+                            ),
+                            SizedBox(height: 5),
+                            Text("Gallery",style: TextStyle(fontWeight: FontWeight.w500)),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            );
+          },
+          child: Container(
+            width: 50,
+            height: 50,
+            decoration:
+                BoxDecoration(shape: BoxShape.circle, color: Colors.purple),
+            child: Icon(Icons.camera_alt, color: Colors.white, size: 25),
+          ),
+        ),
+      ],
+    );
   }
 }

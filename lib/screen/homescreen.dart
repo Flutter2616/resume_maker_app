@@ -14,7 +14,7 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   //image picker veriable
-  String path="";
+  String? path;
 
   //detail veriable
   String? work;
@@ -27,6 +27,7 @@ class _HomescreenState extends State<Homescreen> {
   TextEditingController language = TextEditingController();
   TextEditingController skill = TextEditingController();
   TextEditingController hobbies = TextEditingController();
+  TextEditingController destination = TextEditingController();
   List stat = [
     "Gujarat",
     "Tamil nadu",
@@ -258,6 +259,30 @@ class _HomescreenState extends State<Homescreen> {
                     ),
                     ExpansionTile(
                       leading:
+                      Icon(Icons.star, color: Colors.purple, size: 28),
+                      title: Text("Field",
+                          style: TextStyle(fontSize: 18, color: Colors.black)),
+                      collapsedBackgroundColor: Colors.purple.shade50,
+                      collapsedIconColor: Colors.purple,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            children: [
+                              field(
+                                  condition: 1,
+                                  title: "Field",
+                                  txtdata: destination,
+                                  error: "please Enter your Field",
+                                  kboard: TextInputType.text),
+                              SizedBox(height: 5),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    ExpansionTile(
+                      leading:
                           Icon(Icons.language, color: Colors.purple, size: 28),
                       title: Text("Know Language",
                           style: TextStyle(fontSize: 18, color: Colors.black)),
@@ -423,9 +448,12 @@ class _HomescreenState extends State<Homescreen> {
                                 name: name.text,
                                 add: add.text,
                                 con: con.text,
+                                des: destination.text,
                                 edu: select,
                                 seluni: selUni,
                                 state: state,
+                                path: path,
+                                rangeValues: rangeValues,
                                 work: work,
                                 email: email.text,
                                 hobbies: hobbies.text,
@@ -527,15 +555,16 @@ class _HomescreenState extends State<Homescreen> {
     return Stack(
       alignment: Alignment(1.1, 0.7),
       children: [
-        path==null?CircleAvatar(
-          radius: 100,
-          // backgroundColor: Colors.black,
-          backgroundImage: NetworkImage("https://www.vhv.rs/dpng/d/544-5445462_people-icons-png-flat-person-icon-png-transparent.png")
-        ):CircleAvatar(
-            radius: 100,
-            // backgroundColor: Colors.black,
-            backgroundImage: FileImage(File("$path"))
-        ),
+        path != null
+            ? CircleAvatar(
+                radius: 100,
+                // backgroundColor: Colors.black,
+                backgroundImage: FileImage(File("$path")))
+            : CircleAvatar(
+                radius: 100,
+                // backgroundColor: Colors.black,
+                backgroundImage: NetworkImage(
+                    "https://cdn-icons-png.flaticon.com/512/4086/4086679.png")),
         GestureDetector(
           onTap: () {
             showDialog(
@@ -548,11 +577,12 @@ class _HomescreenState extends State<Homescreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       InkWell(
-                        onTap:() async {
-                          ImagePicker img=ImagePicker();
-                          XFile? xfile=await img.pickImage(source: ImageSource.camera);
+                        onTap: () async {
+                          ImagePicker img = ImagePicker();
+                          XFile? xfile =
+                              await img.pickImage(source: ImageSource.camera);
                           setState(() {
-                            path=xfile!.path;
+                            path = xfile!.path;
                           });
                         },
                         child: Column(
@@ -561,35 +591,42 @@ class _HomescreenState extends State<Homescreen> {
                             Container(
                               width: 50,
                               height: 50,
-                              decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey),
-                              child: Icon(Icons.camera_alt, color: Colors.black, size: 25),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                              child: Icon(Icons.camera_alt,
+                                  color: Colors.black, size: 25),
                             ),
                             SizedBox(height: 5),
-                            Text("Camera",style: TextStyle(fontWeight: FontWeight.w500)),
+                            Text("Camera",
+                                style: TextStyle(fontWeight: FontWeight.w500)),
                           ],
                         ),
                       ),
                       InkWell(
-                        onTap:() async {
-                          ImagePicker img=ImagePicker();
-                          XFile? xfile=await img.pickImage(source: ImageSource.gallery);
+                        onTap: () async {
+                          ImagePicker img = ImagePicker();
+                          XFile? xfile =
+                              await img.pickImage(source: ImageSource.gallery);
                           setState(() {
-                            path=xfile!.path;
+                            path = xfile!.path;
                           });
-                      },
+                        },
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
                               width: 50,
                               height: 50,
-                              decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(10), color: Colors.grey),
-                              child: Icon(Icons.image, color: Colors.black, size: 25),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.grey),
+                              child: Icon(Icons.image,
+                                  color: Colors.black, size: 25),
                             ),
                             SizedBox(height: 5),
-                            Text("Gallery",style: TextStyle(fontWeight: FontWeight.w500)),
+                            Text("Gallery",
+                                style: TextStyle(fontWeight: FontWeight.w500)),
                           ],
                         ),
                       ),

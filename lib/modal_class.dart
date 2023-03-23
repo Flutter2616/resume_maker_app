@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Data {
+  List? boli=[];
   String? name,
       add,
       con,
@@ -24,6 +25,7 @@ class Data {
     this.rangeValues,
     this.email,
     this.des,
+    this.boli,
     this.work,
     this.edu,
     this.seluni,

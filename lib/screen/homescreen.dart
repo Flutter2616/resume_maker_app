@@ -19,6 +19,7 @@ class _HomescreenState extends State<Homescreen> {
   //detail veriable
   String? work;
   List lan = [false, false, false];
+  List boli=[];
   TextEditingController name = TextEditingController();
   TextEditingController add = TextEditingController();
   TextEditingController con = TextEditingController();
@@ -298,6 +299,7 @@ class _HomescreenState extends State<Homescreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     lan[0] = value;
+                                    boli.add("English");
                                   });
                                 },
                                 activeColor: Colors.purple,
@@ -309,6 +311,7 @@ class _HomescreenState extends State<Homescreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     lan[1] = value;
+                                    boli.add("Hindi");
                                   });
                                 },
                                 activeColor: Colors.purple,
@@ -320,6 +323,7 @@ class _HomescreenState extends State<Homescreen> {
                                 onChanged: (value) {
                                   setState(() {
                                     lan[2] = value;
+                                    boli.add("Gujarati");
                                   });
                                 },
                                 activeColor: Colors.purple,
@@ -450,6 +454,7 @@ class _HomescreenState extends State<Homescreen> {
                                 con: con.text,
                                 des: destination.text,
                                 edu: select,
+                                boli: boli,
                                 seluni: selUni,
                                 state: state,
                                 path: path,

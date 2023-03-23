@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:printing/printing.dart';
 import 'package:resume_maker_app/modal_class.dart';
+import 'package:resume_maker_app/pdf_pack.dart';
 
 class Resumescreen extends StatefulWidget {
   const Resumescreen({Key? key}) : super(key: key);
@@ -20,7 +24,9 @@ class _ResumescreenState extends State<Resumescreen> {
         actions: [
           PopupMenuButton(
               itemBuilder: (context) => [
-                    PopupMenuItem(child: Text("Download PDF")),
+                    PopupMenuItem(child: Text("Download PDF"),onTap: () async {
+                      await Printing.layoutPdf(onLayout: (format) => PDF(d),);
+                    },),
                   ],
               color: Colors.white,
               iconSize: 25),
@@ -41,14 +47,17 @@ class _ResumescreenState extends State<Resumescreen> {
                       color: Colors.blueGrey.shade900,
                     ),
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height: 15),
-                        Container(
-                          height: 170,
-                          width: 150,
-                          color: Colors.black,
-                          child: Image.network("${d.path}", fit: BoxFit.fill),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Container(
+                            height: 170,
+                            width: 150,
+                            color: Colors.black,
+                            child: Image.file(File("${d.path}"), fit: BoxFit.fill),
+                          ),
                         ),
                         SizedBox(height: 10),
                         Text(
@@ -85,12 +94,12 @@ class _ResumescreenState extends State<Resumescreen> {
                         SizedBox(height: 30),
                         box("Language", Colors.white, Colors.purple),
                         SizedBox(height: 10),
-                        Text(
-                          "${d.language}",
-                          style: TextStyle(
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: d.boli!.map((e) => Text("-$e", style: TextStyle(
                               color: Colors.white,
                               fontWeight: FontWeight.w300,
-                              fontSize: 20),
+                              fontSize: 20),)).toList(),
                         ),
                       ],
                     ),
@@ -137,7 +146,10 @@ class _ResumescreenState extends State<Resumescreen> {
                                 Colors.white),
                             SizedBox(height: 10),
                             Text(
-                                "${d.rangeValues?.start}-${d.rangeValues?.end}"),
+                                "${d.rangeValues?.start}-${d.rangeValues?.end}",style: TextStyle(
+                                fontSize: 20,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500),),
                             SizedBox(height: 35),
                             box("EDUCATION", Colors.blueGrey.shade700,
                                 Colors.white),
@@ -171,7 +183,7 @@ class _ResumescreenState extends State<Resumescreen> {
                                     fontWeight: FontWeight.w500),
                               ),
                             ),
-                            SizedBox(height: 35),
+                            SizedBox(height: 20),
                             box("HOBBIES", Colors.blueGrey.shade700,
                                 Colors.white),
                             SizedBox(height: 10),
